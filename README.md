@@ -24,7 +24,7 @@ body::before { content:'به ناسر چی پی تی خوش آمدید.'; positi
 <header>NasserGPT</header>
 
 <div id="messages">
-  <div class="message bot">Hallo! Ich bin NasserGPT. Du kannst mir jede Frage stellen.</div>
+  <div class="message bot">Hallo! Ich bin NasserGPT, dein smarter Assistent. Du kannst mir jede Frage stellen.</div>
 </div>
 
 <div id="inputArea">
@@ -33,25 +33,61 @@ body::before { content:'به ناسر چی پی تی خوش آمدید.'; positi
 </div>
 
 <script>
-// Vorprogrammierte Datenbank
+// Sehr große Wissensdatenbank für Offline-Antworten
 const knowledgeBase = [
-  {keywords: ["wie", "geht", "es"], answer: "Mir geht es gut, danke der Nachfrage!"},
-  {keywords: ["wer", "bist", "du"], answer: "Ich bin NasserGPT, dein smarter virtueller Assistent."},
-  {keywords: ["persisch", "sprache"], answer: "Ich kann sowohl Deutsch als auch Persisch verstehen und antworten."},
-  {keywords: ["schule", "aufgabe"], answer: "Ich kann dir bei deinen Schulaufgaben helfen, erkläre alles verständlich."},
-  {keywords: ["wetter"], answer: "Das aktuelle Wetter kann ich nicht live abrufen, aber ich kann allgemeine Infos geben."},
-  {keywords: ["python"], answer: "Python ist eine Programmiersprache, die leicht zu lernen ist und für viele Aufgaben genutzt wird."},
-  {keywords: ["physik"], answer: "Physik ist die Lehre von Materie, Energie und den Naturgesetzen."},
-  {keywords: ["geschwindigkeit"], answer: "Geschwindigkeit beschreibt, wie schnell sich etwas bewegt."},
-  {keywords: ["mathe"], answer: "In Mathe kann ich Aufgaben erklären, Beispiele geben und Formeln erläutern."},
-  {keywords: ["gesundheit"], answer: "Gesundheit ist sehr wichtig, achte auf Ernährung, Bewegung und Schlaf."},
-  {keywords: ["nasser"], answer: "Das ist mein Name – NasserGPT, dein smarter Assistent."},
-  {keywords: ["hallo"], answer: "Hallo! Schön, dass du da bist!"},
+  // Name und Begrüßung
+  {keywords: ["wie heißt du", "wer bist du"], answer: "Ich heiße NasserGPT und ich bin dein smarter virtueller Assistent."},
+  {keywords: ["hallo", "hi", "hey"], answer: "Hallo! Schön, dass du da bist! Wie kann ich dir helfen?"},
+  {keywords: ["guten morgen"], answer: "Guten Morgen! Ich hoffe, du hast einen tollen Tag vor dir."},
+  {keywords: ["guten abend"], answer: "Guten Abend! Wie war dein Tag?"},
+  {keywords: ["tschüss", "auf wiedersehen"], answer: "Tschüss! Bis bald."},
+
+  // Sprache
   {keywords: ["persisch"], answer: "سلام! من می‌توانم به زبان فارسی هم پاسخ دهم."},
   {keywords: ["deutsch"], answer: "Ich kann auch auf Deutsch antworten."},
-  // Hier kannst du **beliebig viele Fragen + Antworten** einfügen
+
+  // Schule
+  {keywords: ["mathe", "aufgabe"], answer: "Ich kann dir bei Mathe helfen! Zum Beispiel: 2 + 2 = 4, oder bei komplizierteren Aufgaben kann ich Schritt für Schritt erklären."},
+  {keywords: ["physik", "kraft"], answer: "Physik beschäftigt sich mit Naturgesetzen. Zum Beispiel: Die Schwerkraft zieht Objekte zur Erde."},
+  {keywords: ["biologie", "tier"], answer: "Biologie ist die Lehre vom Leben. Tiere und Pflanzen haben unterschiedliche Eigenschaften."},
+  {keywords: ["geschichte"], answer: "Geschichte beschreibt Ereignisse der Vergangenheit. Zum Beispiel: Alexander der Große lebte vor über 2000 Jahren."},
+  {keywords: ["erde", "welt"], answer: "Die Erde ist der Planet, auf dem wir leben. Sie dreht sich um die Sonne und hat Kontinente und Ozeane."},
+
+  // Allgemeinwissen
+  {keywords: ["wetter"], answer: "Das Wetter beschreibt Sonne, Regen, Wind, Temperatur. Ich kann aktuelle Daten nicht live abrufen, aber allgemeine Infos geben."},
+  {keywords: ["zeit"], answer: "Die Zeit misst, wann Ereignisse passieren. 1 Stunde hat 60 Minuten."},
+  {keywords: ["stadt"], answer: "Eine Stadt ist ein Ort, wo viele Menschen leben, Häuser stehen und es viele Geschäfte gibt."},
+  {keywords: ["land"], answer: "Ein Land ist ein Gebiet mit eigenen Grenzen und Regierung."},
+
+  // Mathematik
+  {keywords: ["addition"], answer: "Addition bedeutet Zahlen zusammenzählen, z.B. 3 + 5 = 8."},
+  {keywords: ["subtraktion"], answer: "Subtraktion bedeutet Zahlen voneinander abziehen, z.B. 10 - 4 = 6."},
+  {keywords: ["multiplikation"], answer: "Multiplikation bedeutet wiederholtes Addieren, z.B. 3 * 4 = 12."},
+  {keywords: ["division"], answer: "Division bedeutet Aufteilen, z.B. 12 ÷ 3 = 4."},
+
+  // Technologie
+  {keywords: ["computer", "technik"], answer: "Computer sind Geräte, die Informationen verarbeiten. Sie helfen uns beim Rechnen, Schreiben und Spielen."},
+  {keywords: ["internet"], answer: "Das Internet verbindet Menschen und Geräte auf der ganzen Welt. Webseiten und Apps nutzen es."},
+  {keywords: ["programmieren", "code"], answer: "Programmieren bedeutet, einem Computer Anweisungen zu geben, z.B. mit Sprachen wie Python oder JavaScript."},
+
+  // Gesundheit
+  {keywords: ["gesundheit", "körper"], answer: "Gesundheit ist sehr wichtig. Achte auf Essen, Bewegung und Schlaf."},
+  {keywords: ["sport"], answer: "Sport hält dich fit. Schon 30 Minuten Bewegung am Tag helfen."},
+  {keywords: ["essen", "nahrung"], answer: "Eine ausgewogene Ernährung hat Gemüse, Obst, Proteine und Kohlenhydrate."},
+
+  // Fun / Spaß
+  {keywords: ["witz", "humor"], answer: "Warum können Geister so schlecht lügen? Weil man durch sie hindurchsehen kann 😄"},
+  {keywords: ["lied", "musik"], answer: "Musik macht gute Laune! Spiel deine Lieblingslieder oder sing mit."},
+
+  // Persische Antworten
+  {keywords: ["سلام"], answer: "سلام! حال شما چطور است؟"},
+  {keywords: ["خوب"], answer: "خوب است! خوشحالم که می‌بینمت."},
+  {keywords: ["اسم"], answer: "اسم من ناسر جی پی تی است."},
+
+  // Platz für viele weitere Antworten...
 ];
 
+// Chat-Funktion
 const messages = document.getElementById('messages');
 const input = document.getElementById('input');
 
@@ -82,7 +118,7 @@ async function sendMessage() {
   messages.appendChild(typing);
   messages.scrollTop = messages.scrollHeight;
 
-  // Kleine Pause, damit es realistischer wirkt
+  // Pause, damit es realistischer wirkt
   setTimeout(() => {
     const botMsg = document.createElement('div');
     botMsg.className='message bot';
